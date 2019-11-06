@@ -1,8 +1,13 @@
+sphinx
+nbsphinx
+
 ipykernel
+jupytext
+
+ipywidgets
+
 numpy
 matplotlib
 pandas
 sphinxcontrib-bibtex
 sphinxcontrib-svg2pdfconverter
-ipywidgets
-jupytext
