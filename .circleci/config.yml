@@ -21,7 +21,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-deps-{{ .Branch }}-{{ checksum "doc/requirements.txt" }}
+            - v1-deps-{{ .Branch }}-{{ checksum "requirements.txt" }}
             # fallbacks
             - v1-deps-{{ .Branch }}-
             - v1-deps-
@@ -33,11 +33,11 @@ jobs:
       - run:
           name: Installing doc Dependencies
           command: |
-            $PIP_INSTALL -r doc/requirements.txt
+            $PIP_INSTALL -r requirements.txt
       - save_cache:
           paths:
             - ~/.cache/pip
-          key: v1-deps-{{ .Branch }}-{{ checksum "doc/requirements.txt" }}
+          key: v1-deps-{{ .Branch }}-{{ checksum "requirements.txt" }}
 
       - run:
           name: Installing apt Packages
@@ -45,37 +45,13 @@ jobs:
             apt-get update
             apt-get install -y librsvg2-bin
       - run:
-          name: Building HTML
+          name: Building HTML - there is no cache atm?
           command: |
-            python3 setup.py build_sphinx -b html
-      - store_artifacts:
-          name: Uploading HTML files
-          path: build/sphinx/html
-          destination: html
-
+            python3 -m sphinx . build
       - run:
-          name: Building LaTeX
+          name: Pushing to gh-pages
           command: |
-            python3 setup.py build_sphinx -b latex
-      - run:
-          name: Building PDF
-          command: |
-            cd build/sphinx/latex
-            latexmk -pdf
-      - store_artifacts:
-          name: Uploading PDF file
-          path: build/sphinx/latex/nbsphinx.pdf
-          destination: nbsphinx.pdf
-
-      - store_artifacts:
-          name: Uploading overview page
-          path: .circleci/artifacts.html
-          destination: artifacts.html
-
-      - run:
-          name: Checking for Outdated Links
-          command: |
-            python3 setup.py build_sphinx -b linkcheck
+            ghp-import -p -n -f -r https://${GITHUB_PERSONAL_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git build
 workflows:
   version: 2
   build-me-my-docs:
