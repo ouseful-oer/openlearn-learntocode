@@ -25,13 +25,8 @@ jobs:
             # fallbacks
             - v1-deps-{{ .Branch }}-
             - v1-deps-
-
       - run:
-          name: Installing nbsphinx
-          command: |
-            $PIP_INSTALL .
-      - run:
-          name: Installing doc Dependencies
+          name: Installing py dependencies
           command: |
             $PIP_INSTALL -r requirements.txt
       - save_cache:
