@@ -52,3 +52,7 @@ workflows:
   build-me-my-docs:
     jobs:
       - build_docs
+          filters:
+            branches:
+              only:
+                - master
