@@ -49,9 +49,9 @@ jobs:
             ghp-import -p -n -f -r https://${GITHUB_PERSONAL_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git build
 workflows:
   version: 2
-  build-me-my-docs:
+  build:
     jobs:
-      - build_docs
+      - build_docs:
           filters:
             branches:
               only:
