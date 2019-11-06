@@ -14,7 +14,7 @@ jobs:
     working_directory: ~/checkout
 
     environment:
-      PIP_INSTALL: python3 -m pip install --sys-prefix --progress-bar off --upgrade
+      PIP_INSTALL: python3 -m pip install --progress-bar off --upgrade
 
     steps:
       - checkout
