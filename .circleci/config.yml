@@ -43,6 +43,10 @@ jobs:
           name: Building HTML - there is no cache atm?
           command: |
             python3 -m sphinx . build
+            #Hacky way of giving the gh-pages branch a possibly README
+            # and masking any HTML rendered README...
+            cp README.md build/ 2>/dev/null
+            rm -f build/README.html
       - run:
           name: Pushing to gh-pages
           command: |
@@ -56,3 +60,5 @@ workflows:
             branches:
               only:
                 - master
+              ignore:
+                - gh-pages
