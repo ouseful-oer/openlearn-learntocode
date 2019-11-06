@@ -1,5 +1,6 @@
 sphinx
 nbsphinx
+ghp-import
 
 ipykernel
 jupytext
